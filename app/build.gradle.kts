@@ -56,4 +56,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+// Para FlowRow y FlowColumn (Accompanist)
+    implementation("com.google.accompanist:accompanist-flowlayout:0.32.0")
 }
