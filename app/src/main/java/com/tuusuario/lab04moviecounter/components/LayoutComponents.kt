@@ -18,29 +18,45 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.flowlayout.FlowColumn
 import com.google.accompanist.flowlayout.FlowRow
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.foundation.layout.Row
 
-// LazyColumn Component
+
+// LazyColumn Component - VERSIÓN MEJORADA
 @Composable
 fun SampleLazyColumn() {
-    val items = (1..20).map { "Item $it" }
+    val items = (1..20).map { "Premium Item $it" }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp) // Más espacio
     ) {
         items(items) { item ->
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-            ) {
-                Text(
-                    text = item,
-                    modifier = Modifier.padding(16.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp), // Más elevación
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer // Color mejorado
                 )
+            ) {
+                Row( // Cambió a Row para mejor layout
+                    modifier = Modifier.padding(20.dp), // Más padding
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        Icons.Default.Home,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = item,
+                        style = MaterialTheme.typography.titleMedium, // Mejor tipografía
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
             }
         }
     }
@@ -70,46 +86,28 @@ fun SampleLazyRow() {
 }
 
 // Grid Component (LazyVerticalGrid)
-// REEMPLAZAR la función SampleGrid en LayoutComponents.kt con esta versión mejorada:
-
-// Grid Component - VERSIÓN MEJORADA
 @Composable
 fun SampleGrid() {
-    val items = (1..12).map { "Enhanced Grid $it" }
+    val items = (1..12).map { "Grid $it" }
 
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 120.dp), // Cambio a adaptive
-        contentPadding = PaddingValues(20.dp), // Más padding
-        horizontalArrangement = Arrangement.spacedBy(12.dp), // Más espacio
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(items) { item ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp), // Más alto
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer // Color diferente
-                )
+                    .height(100.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
-                Column( // Cambió a Column
+                Box(
                     modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        Icons.Default.Settings,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier.size(32.dp)
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = item,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
+                    Text(text = item)
                 }
             }
         }
