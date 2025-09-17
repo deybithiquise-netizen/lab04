@@ -18,6 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.flowlayout.FlowColumn
 import com.google.accompanist.flowlayout.FlowRow
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
 
 // LazyColumn Component
 @Composable
@@ -67,28 +70,46 @@ fun SampleLazyRow() {
 }
 
 // Grid Component (LazyVerticalGrid)
+// REEMPLAZAR la función SampleGrid en LayoutComponents.kt con esta versión mejorada:
+
+// Grid Component - VERSIÓN MEJORADA
 @Composable
 fun SampleGrid() {
-    val items = (1..12).map { "Grid $it" }
+    val items = (1..12).map { "Enhanced Grid $it" }
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        columns = GridCells.Adaptive(minSize = 120.dp), // Cambio a adaptive
+        contentPadding = PaddingValues(20.dp), // Más padding
+        horizontalArrangement = Arrangement.spacedBy(12.dp), // Más espacio
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(items) { item ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(100.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                    .height(120.dp), // Más alto
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer // Color diferente
+                )
             ) {
-                Box(
+                Column( // Cambió a Column
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    Text(text = item)
+                    Icon(
+                        Icons.Default.Settings,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.size(32.dp)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = item,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
                 }
             }
         }
