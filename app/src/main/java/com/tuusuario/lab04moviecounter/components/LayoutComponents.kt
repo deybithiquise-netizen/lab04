@@ -18,26 +18,48 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.flowlayout.FlowColumn
 import com.google.accompanist.flowlayout.FlowRow
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.foundation.layout.Row
+
 
 // LazyColumn Component
+// REEMPLAZAR la función SampleLazyColumn en LayoutComponents.kt con esta versión mejorada:
+
+// LazyColumn Component - VERSIÓN MEJORADA
 @Composable
 fun SampleLazyColumn() {
-    val items = (1..20).map { "Item $it" }
+    val items = (1..20).map { "Premium Item $it" }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp) // Más espacio
     ) {
         items(items) { item ->
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-            ) {
-                Text(
-                    text = item,
-                    modifier = Modifier.padding(16.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp), // Más elevación
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer // Color mejorado
                 )
+            ) {
+                Row( // Cambió a Row para mejor layout
+                    modifier = Modifier.padding(20.dp), // Más padding
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        Icons.Default.Home,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = item,
+                        style = MaterialTheme.typography.titleMedium, // Mejor tipografía
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
             }
         }
     }
